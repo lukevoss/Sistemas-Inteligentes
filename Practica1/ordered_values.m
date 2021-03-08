@@ -2,7 +2,7 @@ function vals=ordered_values (v, domains, G, case_number)
 %%%function ordered_values(v,…)
 %%% returns the list of ordered values
 vals=0;
-possible= find(G(v,:)==1);
+possible= find(domains(v,:)==1);
 if length(possible)>0
     switch(case_number)
         case 1
