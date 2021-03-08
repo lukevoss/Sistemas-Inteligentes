@@ -6,7 +6,7 @@ if (v ~= 0)
     while ~isempty(valuesList) && ~isempty(withoutValue)
         value = valuesList(1);
         if isSafe(N,G,x,v,value)
-            [x, domains] = assign_value(x,domains,v,value);
+            [x, domains] = assign_value(x,domains,G, v,value);
             [x, domains] = backtracking(N,x,domains,G,case_noassign, case_ordered);
             withoutValue = find(x == 0);
             if ~isempty(withoutValue)
