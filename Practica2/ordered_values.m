@@ -14,7 +14,8 @@ if length(possible)>0
         if length(valsPossible) == 0
             vals = 0;
         else
-            [~,vals] = sort(sum(domains(:,valsPossible),1)); % sum up the possible colors and sort them to get sorted values
+            [~,i] = sort(sum(domains(:,valsPossible),1)); % sum up the possible colors and sort them to get sorted values
+            vals = valsPossible(i);
         end
         otherwise
         vals=0;
