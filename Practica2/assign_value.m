@@ -9,7 +9,7 @@ function [x,domains] = assign_value(x,domains, v, value)
         domains(index1, value)= 0;
         domains(index2, value)= 0;
     end
-    sub = submatrix(v,N);
+    sub = submatrix(v,size(x,1));
     domains(sub,value)= 0;
 end
 

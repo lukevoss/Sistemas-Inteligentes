@@ -6,12 +6,13 @@ function [x,domains] = backtracking(x, domains, case_noassign, case_ordered)
         while ~isempty(valuesList) && ~isempty(withoutValue)
             value = valuesList(1);
             if isSafe(x,value,v)
-                x(v)=value;
-                %TODO
+                domains_bevor = domains;
+                [x,domains] = assign_value(x,domains,v,value);
                 [x,domains] = backtracking(x,domains,case_noassign, case_ordered);
                 withoutValue = find(x == 0);
                 if ~isempty(withoutValue)
                     x(v) = 0;
+                    domains = domains_bevor;
                 end
             else
                 valuesList(1)=[];
