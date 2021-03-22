@@ -1,0 +1,8 @@
+function Successor = randSuccessor(State, N)
+%Returns random succesor
+%   it changes the position of 2 queens
+pos1 = rand(1,N);
+pos2 = rand(1,N);
+if
+end
+
