@@ -9,6 +9,7 @@ improvement = true;
 currentVar = 0;
 %% 2. Search loop
 while (improvement)
+    
     currentVar=mod(currentVar,N)+1; %% Next variable, in each iteration a different variable
     [S,S_cost]=BestSuccessor(x, currentVar); %% Best Successor
     if (S_cost<best_cost)
