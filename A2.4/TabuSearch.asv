@@ -1,18 +1,20 @@
-function [outputArg1,outputArg2] = TabuSearch(A, initial_state, Tenure, Max_Itarations)
+function [best] = TabuSearch(A, initial_state, Tenure, Max_Itarations)
 %Tabu Search Algorithm 
 N = length(initial_state);
 current = initial_state;
 best = current;
 bestCost = cost(A, current, 1);
 i = 1;
-Tabu = zeros(N,N);
-Tabu(1, :) = current;
+Tabu = zeros(Tenure,N);
 while (i <= Max_Itarations)
-    listSuccessors = Successor(A, current, 1);
+    positionTabu = 1+mod(i, Tenure);
+    Tabu(positionTabu, :) = current;
+    listSuccessors = Successor(A, current);
     foundNewCurrent = false;
     while ~isempty(listSuccessors) && ~foundNewCurrent
         newCurrent = listSuccessors(1,:);
-        costNew = cost(A, newCurrent, 1)
+        currentBefore = current; %for Printing
+        costNew = cost(A, newCurrent, 1);
         listSuccessors(1,:) = [];
         if costNew < bestCost
             best = newCurrent;
@@ -23,8 +25,26 @@ while (i <= Max_Itarations)
             current = newCurrent;
             foundNewCurrent = true;
         end
+        %%%%%%%%%%%% Print functions:%%%%%%%%%%%%%%%%%%%%%%%%%
+        disp('\n-----------------------------------------------')
+        fprintf('Iteration: %d\n',i)
+        disp('Best until now:')
+        disp(best)
+        fprintf('Best Cost: %d\n\n', bestCost)
+        disp('Current')
+        disp(currentBefore)
+        fprintf('Current cost: %d\n', cost(A, currentBefore, 1))
+        disp('Successor Selected')
+        disp(newCurrent)
+        fprintf('Cost: %d\n', costNew)
+        disp('Accepted: ')
+        disp(foundNewCurrent)
+        disp('-----------------------------------------------\n')
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     end
-    Tabu(i+1,:) =  
-        
+    
+    i = i+1;
+end
+end
   
 
