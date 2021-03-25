@@ -1,0 +1,7 @@
+function [list] = Successor(actual)
+%Functuo
+N = length(actual);
+outputArg1 = inputArg1;
+outputArg2 = inputArg2;
+end
+
