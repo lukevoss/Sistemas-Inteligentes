@@ -1,7 +1,13 @@
 function [list] = Successor(actual)
-%Functuo
+%% Function that creates all the Successors from a actual state
 N = length(actual);
-outputArg1 = inputArg1;
-outputArg2 = inputArg2;
+listCosts = zeros(1,N);
+for i = 1:N
+    for j = i+1:N
+        actual([i j]) = actual ([j i]);%swap
+        list = [list ; actual];
+        listCosts( = [listCosts 
+    end
+end
 end
 
