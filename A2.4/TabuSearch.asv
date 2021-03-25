@@ -6,8 +6,8 @@ best = current;
 bestCost = cost(A, current, 1);
 i = 1;
 Tabu = zeros(N,N);
+Tabu(1, :) = current;
 while (i <= Max_Itarations)
-    Tabu(i, :) = current;
     listSuccessors = Successor(A, current, 1);
     foundNewCurrent = false;
     while ~isempty(listSuccessors) && ~foundNewCurrent
@@ -24,8 +24,7 @@ while (i <= Max_Itarations)
             foundNewCurrent = true;
         end
     end
-    i = i+1;
-end
-end
+    Tabu(i+1,:) =  
+        
   
 
