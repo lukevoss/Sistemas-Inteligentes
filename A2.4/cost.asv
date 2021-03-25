@@ -6,17 +6,17 @@ function [eval] = cost(A,ini, case_goal)
 switch (case_goal)
     case 1
         sum = 0;
-        for worker = 1:length(ini)
-            task = ini(worker);
-            sum = sum + A(task, worker);
+        for wo = 1:length(ini)
+            ta = ini(wo);
+            sum = sum + A(worker, wo);
         end 
         eval = sum;
     case 2
         max = 0;
-        for worker = 1:length(ini)
-            task = ini(worker)
-            if (A(task,worker) > max)
-                max = A(task, worker);
+        for wo = 1:length(ini)
+            worker = ini(wo)
+            if (A(worker,wo) > max)
+                max = A(worker, wo);
             end
             eval = max;
         end
