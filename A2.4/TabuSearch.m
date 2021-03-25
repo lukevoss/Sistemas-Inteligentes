@@ -40,6 +40,8 @@ while (i <= Max_Itarations)
         fprintf('Cost: %d\n\n', costNew)
         disp('Accepted: ')
         disp(foundNewCurrent)
+        disp('Tabu: ')
+        disp(Tabu)
         disp('-----------------------------------------------')
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     end

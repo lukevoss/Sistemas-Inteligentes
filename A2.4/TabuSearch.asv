@@ -14,6 +14,7 @@ while (i <= Max_Itarations)
     while ~isempty(listSuccessors) && ~foundNewCurrent
         newCurrent = listSuccessors(1,:);
         currentBefore = current; %for Printing
+        bestBefore = best; %for Printing
         costNew = cost(A, newCurrent, 1);
         listSuccessors(1,:) = [];
         if costNew < bestCost
@@ -26,20 +27,21 @@ while (i <= Max_Itarations)
             foundNewCurrent = true;
         end
         %%%%%%%%%%%% Print functions:%%%%%%%%%%%%%%%%%%%%%%%%%
-        disp('\n-----------------------------------------------')
+        disp('-----------------------------------------------')
         fprintf('Iteration: %d\n',i)
         disp('Best until now:')
-        disp(best)
-        fprintf('Best Cost: %d\n\n', bestCost)
+        disp(bestBefore)
+        fprintf('Best Cost: %d\n\n', cost(A, bestBefore,1))
         disp('Current')
         disp(currentBefore)
-        fprintf('Current cost: %d\n', cost(A, currentBefore, 1))
+        fprintf('Current cost: %d\n\n', cost(A, currentBefore, 1))
         disp('Successor Selected')
         disp(newCurrent)
-        fprintf('Cost: %d\n', costNew)
+        fprintf('Cost: %d\n\n', costNew)
         disp('Accepted: ')
         disp(foundNewCurrent)
-        disp('-----------------------------------------------\n')
+        disp('Tabu: '
+        disp('-----------------------------------------------')
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     end
     
