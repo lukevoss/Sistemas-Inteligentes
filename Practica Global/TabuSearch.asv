@@ -1,13 +1,11 @@
-function [bestCost, i] = TabuSearch(Tenure, Max_Itarations, stations, sCost, satelites)
+function [bestCost, i] = TabuSearch(Tenure, Max_Itarations, stations, sCost, satelite)
 %% Tabu Search Algorithm 
-%Tenure = number of remembered states
-%Max_Iterations = number of times Tabu executes
-%stations = Random Coordinates of possible Satelite Positions
-%sCost = Random selected Installation Costs for possible Positions
-%satelites = Random selected Positions as Representatives
-
-N = length(satelites);
-current = satelites;
+%% Random Coordinates of possible Satelite Positions
+%
+%
+%
+N = length(satelite);
+current = stations;
 best = current;
 bestCost = fEval(current);
 i = 1;
