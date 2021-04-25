@@ -11,33 +11,36 @@ current = satelites;
 best = current;
 bestCost = fEval(current);
 i = 1;
-Tabu = zeros(Tenure,N);
-while (i <= Max_Itarations && bestCost~=0)
+Tabu = zeros(Tenure,N); %create Tabu table
+noImprovements= 0;
+while (i <= Max_Itarations && noImprovements<100)
+    %insert current in Tabu table
+    %if table is full: discard oldest entry and insert new state:
     positionTabu = 1+mod(i, Tenure);
     Tabu(positionTabu, :) = current;
-    listSuccessors = SuccessorTabu(current);
-    foundNewCurrent = false;
-    while ~isempty(listSuccessors) && ~foundNewCurrent
+    %find possible Successors:
+    listSuccessors = SuccessorTabu(current, stations, sCost);
+    acceptState = false;
+    %look for a better arrangement of satelites:
+    while ~isempty(listSuccessors) && ~acceptState
         newCurrent = listSuccessors(1,:);
         costNew = fEval(newCurrent);
         listSuccessors(1,:) = [];
+        %accept always better states:
         if costNew < bestCost
             best = newCurrent;
             current = newCurrent;
             bestCost = costNew;
-            foundNewCurrent = true;
+            acceptState = true;
+        %accept also a worse state if it's not in the Tabu List:
         elseif ~ismember(newCurrent,Tabu,'row')
             current = newCurrent;
-            foundNewCurrent = true;
+            acceptState = true;
+            noImprovements = noImprovements + 1;
         end
     end
     
     i = i+1;
-end
-if (bestCost == 0)
-    solutionFound = true;
-else
-    solutionFound = false;
 end
 end
   
