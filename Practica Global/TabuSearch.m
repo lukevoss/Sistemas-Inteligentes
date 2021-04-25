@@ -24,7 +24,15 @@ while (i <= Max_Itarations && noImprovements<100)
     %look for a better arrangement of satelites:
     while ~isempty(listSuccessors) && ~acceptState
         newCurrent = listSuccessors(1,:);
-        costNew = fEval(newCurrent);
+        %Cut NewCurrent to true length by removing 0 elements
+        if (newCurrent(60)==0)
+            index = newCurrent == 0;
+            newCurrent_cut = newCurrent;
+            newCurrent_cut(index) = [];
+            costNew = fEval(newCurrent_cut);
+        else
+            costNew = fEval(newCurrent);
+        end
         listSuccessors(1,:) = [];
         %accept always better states:
         if costNew < bestCost

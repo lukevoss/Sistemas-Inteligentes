@@ -7,7 +7,7 @@ function cost = fEval(satelites,representatives)
     indexes = (1:N);
     notRepresentatives = setdiff(indexes,representatives);
     for n = notRepresentatives
-        [dist,~] = min_distancia(satelites(:,n), satelites(:, representatives));
+        [dist,~] = min_distancia(satelites(n,:), satelites(representatives,:));
         cost = cost + dist;
     end
 end
