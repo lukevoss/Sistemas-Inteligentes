@@ -11,12 +11,9 @@ for i = 1:listSize
     if (M > N)
         M = N;
     end
-    newElement = current;
     %delete values of current do get a correct number of satelites
-    while length(newElement) ~= M
-        pos = randi([1 length(newElement)],1,1);
-        newElement(pos) = [];
-    end
+    while length(current) ~= M
+        randi([1 length(current)
     for j = i:M
         aux = actual(i);
         
