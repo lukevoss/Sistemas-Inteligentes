@@ -22,7 +22,6 @@ while (T>T_min && noImprovement < 20)
     end
     T = enfriar(T);
     iter = iter + 1;
-    fEval(satelites, Current)
 end
 bestCost=fEval(satelites, Current);
 end

@@ -6,18 +6,18 @@ function Successor = AnnealingSuccessor(Old, satelites, installCosts, Cmax, M)
 Successor = Old;
 len = length(Successor);
 %first randomly removing  representatives.
-for i = len:1
-    if(0.3>rand())
+for i = len:-1:1
+    if(0.4>rand())
         Successor(i)=[];
     end
 end
 %then randomly adding representatives (this also creates change in
 %representatives). Meanwhile keeping in mind the constraints.
 Nadd = M-length(Successor);
-[N,~]=size(satelites);
-indexes = (1:N);
 for i = 1:Nadd
-    if(0.7>rand())
+    if(0.9>rand())
+        [N,~]=size(satelites);
+        indexes = (1:N);
         notRepresentatives = setdiff(indexes,Successor);
         j=1;
         abort = 0;
@@ -29,6 +29,7 @@ for i = 1:Nadd
                 Successor(length(Successor)+1)=notRepresentatives(ind);
                 abort = 1;
             end
+            j = j+1;
         end
     end
 end
