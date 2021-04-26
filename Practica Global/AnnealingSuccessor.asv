@@ -15,7 +15,7 @@ end
 %representatives). Meanwhile keeping in mind the constraints.
 Nadd = M-length(Successor);
 for i = 1:Nadd
-    if(0.99>rand())
+    if(0.97>rand())
         [N,~]=size(satelites);
         indexes = (1:N);
         notRepresentatives = setdiff(indexes,Successor);
