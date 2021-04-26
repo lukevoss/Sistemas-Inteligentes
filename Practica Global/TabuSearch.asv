@@ -1,11 +1,10 @@
-function [bestCost, i] = TabuSearch(Tenure, Max_Itarations, stations, sCost, satelites, Cmax)
+function [bestCost, i] = TabuSearch(Tenure, Max_Itarations, stations, sCost, satelites)
 %% Tabu Search Algorithm 
 %Tenure = number of remembered states
 %Max_Iterations = number of times Tabu executes
 %stations = Random Coordinates of possible Satelite Positions
 %sCost = Random selected Installation Costs for possible Positions
 %satelites = Random selected Positions as Representatives
-%Cmax = maximal installations costs (constraint)s
 
 N = length(satelites);
 current = satelites;
@@ -14,14 +13,14 @@ bestCost = fEval(current);
 i = 1;
 Tabu = zeros(Tenure,N); %create Tabu table
 noImprovements= 0;
-nSuccessors = 20;
+listSize = 
 while (i <= Max_Itarations && noImprovements<100)
     %insert current in Tabu table
     %if table is full: discard oldest entry and insert new state:
     positionTabu = 1+mod(i, Tenure);
     Tabu(positionTabu, :) = current;
     %find possible Successors:
-    listSuccessors = SuccessorTabu(current, stations, sCost, nSuccessors, Cmax);
+    listSuccessors = SuccessorTabu(current, stations, sCost);
     acceptState = false;
     %look for a better arrangement of satelites:
     while ~isempty(listSuccessors) && ~acceptState
