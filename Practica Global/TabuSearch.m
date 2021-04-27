@@ -10,7 +10,7 @@ function [bestCost, i] = TabuSearch(Tenure, Max_Itarations, stations, sCost, sat
 N = length(satelites);
 current = satelites;
 best = current;
-bestCost = fEval(current);
+bestCost = fEval(stations, current);
 i = 1;
 Tabu = zeros(Tenure,N); %create Tabu table
 noImprovements= 0;
@@ -31,9 +31,9 @@ while (i <= Max_Itarations && noImprovements<100)
             index = newCurrent == 0;
             newCurrent_cut = newCurrent;
             newCurrent_cut(index) = [];
-            costNew = fEval(newCurrent_cut);
+            costNew = fEval(stations, newCurrent_cut);
         else
-            costNew = fEval(newCurrent);
+            costNew = fEval(stations, newCurrent);
         end
         listSuccessors(1,:) = [];
         %accept always better states:
