@@ -7,7 +7,7 @@ Successor = Old;
 len = length(Successor);
 %first randomly removing  representatives.
 for i = len:-1:1
-    if(0.4>rand())
+    if(0.1>rand())
         Successor(i)=[];
     end
 end
@@ -15,13 +15,13 @@ end
 %representatives). Meanwhile keeping in mind the constraints.
 Nadd = M-length(Successor);
 for i = 1:Nadd
-    if(0.9>rand())
+    if(0.99>rand())
         [N,~]=size(satelites);
         indexes = (1:N);
         notRepresentatives = setdiff(indexes,Successor);
         j=1;
         abort = 0;
-        while(~abort && j<=10) %10 tries to find a Representative
+        while(~abort && j<=15) %30 tries to find a Representative
             ind = randperm(length(notRepresentatives),1);
             Try = Successor;
             Try(length(Successor)+1) = notRepresentatives(ind);
