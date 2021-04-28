@@ -1,5 +1,5 @@
 function [list] = SuccessorTabu(current, stations, sCost, listSize, Cmax)
-%% Function that creates all the Successors from a actual state
+%%Function that creates all the Successors from a actual state
 N = length(current);
 
 list = zeros(listSize,N);
