@@ -4,8 +4,8 @@ N = length(current);
 
 list = zeros(listSize,N);
 listCosts = zeros(listSize);
-size = 0;
-while size < listSize
+i = 1;
+while i <= listSize
     %create sometimes Successors with less than 60 satelites
     M = ceil(normrnd(N,1.5));
     if (M > N)
@@ -18,7 +18,7 @@ while size < listSize
         newElement(pos) = [];
     end
     
-    indexes = (1:N);
+    indexes = (1:length(stations));
     freeStations = setdiff(indexes,newElement);
     newValues = randperm(length(freeStations));
     pointer = 1;
@@ -38,10 +38,10 @@ while size < listSize
     end
     %check if new Element completes Contraints of CMax
     if(fInstallCost(sCost,newElement)<=Cmax) 
-        %insert new Element
+        %insert new Element 
         list(i,1:length(newElement)) = newElement;
         listCosts(i) = fEval(stations, newElement);
-        size = size +1;
+        i = i +1;
     end
 end
 [~,I]=sort(listCosts);

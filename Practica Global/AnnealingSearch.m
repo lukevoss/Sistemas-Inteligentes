@@ -6,7 +6,7 @@ T_min=1;
 noImprovement = 0;
 iter = 0;
 Current=representatives;
-while (T>T_min && noImprovement < 400)
+while (T>T_min && noImprovement < 70)
     New = AnnealingSuccessor(Current, satelites, installCosts, Cmax, M);
     deltaE = fEval(satelites, New)  - fEval(satelites, Current);
     if deltaE<0
