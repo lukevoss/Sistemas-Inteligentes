@@ -1,9 +1,6 @@
 function [Current, T_plot] = AnnealingSearch(T,T_min,N)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%Anealing Search for N-Queens Problem
 Current = randperm(N);
-dispTablero(Current) % for showing the improvement
-fprintf('Number of conflicts: %d\n',fEval(Current)) % for showing the improvement
 noImprovement = 0;
 T_plot = T;
 while (T>T_min && noImprovement < 20 && fEval(Current)~=0)
