@@ -1,7 +1,6 @@
-function nPob = cruceSimple(parejas,Pob)
+function nPob = cruceSimple(parejas,Pob,k)
  N=size(parejas,1);
  p=1;
- k=2;
  for i=1:N
      
      aux=Pob(parejas(i,1),(1:k));
