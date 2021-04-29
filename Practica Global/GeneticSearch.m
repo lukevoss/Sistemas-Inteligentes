@@ -1,67 +1,61 @@
-function PobFit=GeneticSearch(PobSize,N,M,K,stations)
-    %stations:(2, N), N=możliwe satelity (300)/ stations:(N,2)
-    %Pob = /satelites
-   
-    %INDICES DE LOS REPRESENTANTES EN CADA ELEMENTO
-    Pob = GenPob(N, PobSize, M);
-    %CADA ELEMENTO TIENE 0 O 1 DEPENDIENDO DE SI ES REPRESENTANTE O NO,
-    %ESTO NOS FACILITA EL USO DE LOS OPERADORES
-    PobBin=zeros(PobSize,N);
-    n=1;
-    while n<=PobSize
-        PobBin(n,Pob(n,:))=1; 
-        n=n+1;
-    end
-    for i=1:PobSize
-       prueba(i,:)=find(PobBin(i,:)==1); 
-    end
-   
-%     %GUARDA CUAL ES EL ÍNDICE DEL REPRESENTANTE DE CADA SATÉLITE, 0 EN EL
-%     %CASO DE SER EL MISMO
-%     n = 1;
-%     represented = zeros(PobSize, N);
-%     while n <= PobSize
-%         represented(n,:) = representedGroups(stations, Pob(n,:), N);
-%         n = n+1;
-%     end
+function [instalationCost, bestCost, iteration, solution]=GeneticSearch(N,M,stations,sCost,CMax)
+    %GENETIC SEARCH ALGORITHM FOR SATELITES PROBLEM
+    %instalationCost= final cost of instalation 
+    %bestCost= value of this representatives
+    %iteration= number of iterations
+    %solution= best solution in this run
+    
+    %N=number of satelites 
+    %M= number of representatives
+    %stations= vector with positions of the satelites
+    %sCost= vector with costs for every satelite
+    %CMax= maximum cost that we can pay for representants
     
     MAX_itera=1000;
-    Pcross=0.9;
-    Pmut=0.1;
-    
-    PobFit=EvalPob(Pob,stations);
-    disp("INICIAL");
-    disp(PobFit);
-    
-    itera=0;
+    Pcross=0.95;
+    Pmut=0.15;
+    crucePart=0.5;
+    PopulationSize = 1000;
+    iteration=0;
     iterabest=0;
-    bestPob=min(PobFit);
+    
+        
+    Population=PopulationGenerator(N, M, PopulationSize); %Population generation             
+    PobFit=PopulationEval(Population,stations); %Evaluation of every individual  
+    [value,index]=min(PobFit);
+    bestCost=value;
+    solution=Population(index,:);
+    instalationCost=fInstallCost(sCost,solution);   
    
-    while ((itera<MAX_itera)  && (iterabest<20))
-        Padres=torneo(PobFit)'; %%devuelve los indices de los padres que se cruzaran
+    while (iteration<MAX_itera  && iterabest<20 && size(PobFit,2)>=3)      
+        Padres=torneo(PobFit)'; 
         parejas=Emparejar(Padres,Pcross);
-        tmpPobBin=cruceSimple(parejas,PobBin,K); %%devuelve una nueva poblacion cruzada
-        newPobBin=swap(tmpPobBin,Pmut); %%poblacion con mutaciones
+        tmpPopulation=cruceSimple(parejas,Population,crucePart);         
+        newPopulation=swap(tmpPopulation,Pmut,M);              
         
-        tamNewPob=size(newPobBin,1);
-        newPobBin=controlaSatelites(newPobBin,M);
-        newPob=zeros(tamNewPob,M);
-        for i=1:size(newPobBin,1)
-         newPob(i,:)=find(newPobBin(i,:)==1); 
-        end
-      
-        newFit=EvalPob(newPob,stations);
-        
-        [Pob,PobBin,PobFit]=Re_Elitista(Pob,PobBin,newPob,newPobBin,PobFit,newFit);
-        if(min(PobFit)<bestPob)
-            bestPob=min(PobFit);
+        newPopulation=checkSatelitesPopulation(newPopulation,M,stations);         
+        newFit=PopulationEval(newPopulation,stations);           
+                
+        if(min(newFit)<bestCost)
+            [value,index]=min(newFit);
+            bestCost=value;
+            solution=newPopulation(index,:);
+            instalationCost=fInstallCost(sCost,solution);
             iterabest=0;
+             iteration=9;
         else
             iterabest=iterabest+1;
         end
-        itera=itera+1;
-
-
-    end
+        
+        Population=newPopulation;
+        PobFit=newFit;        
+        iteration=iteration+1;
+        
+    end    
     
+    while instalationCost>CMax
+        solution=solution(1,size(solution,2)-1);
+        bestCost=PopulationEval(solution,stations);   
+        instalationCost=fInstallCost(sCost,solution);
+    end
 end

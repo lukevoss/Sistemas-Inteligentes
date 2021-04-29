@@ -1,14 +1,13 @@
-function pob=swap(tmpPob,Pmut)
-   [N,M]=size(tmpPob);
-   pp=rand(1,N);
-   ind=find(pp>Pmut);
+function population=swap(tmpPopulation,Pmut,M) 
+   N=size(tmpPopulation,1);
+   population=zeros(size(tmpPopulation));
+   
    for i=1:N
-    pob(i,:)=tmpPob(i,:);
-    if not(ind==i)
-         r=randperm(M,2);
-         aux=pob(i,r(1));
-         pob(i,r(1))=pob(i,r(2));
-         pob(i,r(2))=aux;
+    population(i,:)=tmpPopulation(i,:);
+    if rand(1)<=Pmut
+        oldSatelite=randperm(N,1);
+        newSatelite=randperm(M,1);
+        population(i,oldSatelite)=newSatelite; 
     end
    end
 end
