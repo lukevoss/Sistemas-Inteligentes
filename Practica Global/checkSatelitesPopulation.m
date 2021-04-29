@@ -11,11 +11,14 @@ function newPopulation=checkSatelitesPopulation(Population,M,satelites)
         if populationSize<M           
             newPopulation(i,1:populationSize)=unique(Population(i,:));
             while populationSize<=M
-               k=randi(size(satelites,1));
-               if ~ismember(k,newPopulation)
-                   newPopulation(i,populationSize)=k;
-                   populationSize = populationSize + 1;
-               end
+               N=size(satelites,1);
+               indexes = (1:N);
+               notRepresentatives = setdiff(indexes,newPopulation(i,:));
+               
+               k=randi(size(notRepresentatives,2));
+               
+               newPopulation(i,populationSize)=notRepresentatives(k);
+               populationSize = populationSize + 1;
             end 
         end
     end

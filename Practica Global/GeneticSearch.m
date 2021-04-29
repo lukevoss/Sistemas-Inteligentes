@@ -15,34 +15,33 @@ function [instalationCost, bestCost, iteration, solution]=GeneticSearch(N,M,stat
     Pcross=0.95;
     Pmut=0.15;
     crucePart=0.5;
-    PopulationSize = 1000;
+    PopulationSize = 100;
     iteration=0;
     iterabest=0;
     
         
-    Population=PopulationGenerator(N, M, PopulationSize); %Population generation             
-    PobFit=PopulationEval(Population,stations); %Evaluation of every individual  
+    Population=populationGenerator(N, M, PopulationSize); %Population generation             
+    PobFit=populationEval(Population,stations); %Evaluation of every individual  
     [value,index]=min(PobFit);
     bestCost=value;
     solution=Population(index,:);
-    instalationCost=fInstallCost(sCost,solution);   
+    instalationCost=fInstallCost(sCost,solution);       
    
-    while (iteration<MAX_itera  && iterabest<20 && size(PobFit,2)>=3)      
-        Padres=torneo(PobFit)'; 
-        parejas=Emparejar(Padres,Pcross);
+    while (iteration<MAX_itera  && iterabest<20 && size(PobFit,1)>=3)        
+        Padres=tournament(PobFit)'; 
+        parejas=emparejar(Padres,Pcross);
         tmpPopulation=cruceSimple(parejas,Population,crucePart);         
         newPopulation=swap(tmpPopulation,Pmut,M);              
         
         newPopulation=checkSatelitesPopulation(newPopulation,M,stations);         
-        newFit=PopulationEval(newPopulation,stations);           
+        newFit=populationEval(newPopulation,stations);           
                 
         if(min(newFit)<bestCost)
             [value,index]=min(newFit);
             bestCost=value;
             solution=newPopulation(index,:);
             instalationCost=fInstallCost(sCost,solution);
-            iterabest=0;
-             iteration=9;
+            iterabest=0;           
         else
             iterabest=iterabest+1;
         end
@@ -55,7 +54,7 @@ function [instalationCost, bestCost, iteration, solution]=GeneticSearch(N,M,stat
     
     while instalationCost>CMax
         solution=solution(1,size(solution,2)-1);
-        bestCost=PopulationEval(solution,stations);   
+        bestCost=populationEval(solution,stations);   
         instalationCost=fInstallCost(sCost,solution);
     end
 end

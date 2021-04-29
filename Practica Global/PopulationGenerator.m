@@ -1,7 +1,7 @@
-function generatedPopulation = PopulationGenerator(N, M, populationSize)
-%populationSize: ilość osobników w populacji
-%N: ilość satelit
-%M: ilość reprezentantów
+function generatedPopulation = populationGenerator(N, M, populationSize)
+%populationSize= number of individuals
+%N= number of satelites
+%M= number of representants
     
 generatedPopulation = zeros(populationSize, M);
 n = 1;
