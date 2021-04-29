@@ -1,14 +1,15 @@
-function population=swap(tmpPopulation,Pmut,M) 
+function population=swap(tmpPopulation,Pmut,M,N) 
    %tmpPopulation= newly created population
    %Pmut= probabiliti to mutate
    %M= number of representants
+   %N= number of candidates
    
-   N=size(tmpPopulation,1);
+   individuos=size(tmpPopulation,1);
    population=zeros(size(tmpPopulation)); 
    
-   for i=1:N   
+   for i=1:individuos   
     population(i,:)=tmpPopulation(i,:);
-    if rand(1)<=Pmut
+    if rand(1)<=Pmut      
         oldSatelite=randperm(M,1);
         newSatelite=randperm(N,1);
         population(i,oldSatelite)=newSatelite; 

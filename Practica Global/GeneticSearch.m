@@ -15,7 +15,7 @@ function [instalationCost, bestCost, iteration, solution]=GeneticSearch(N,M,stat
     Pcross=0.95;
     Pmut=0.15;
     crucePart=0.5;
-    PopulationSize = 100;
+    PopulationSize = 1000;
     iteration=0;
     iterabest=0;
     
@@ -31,7 +31,7 @@ function [instalationCost, bestCost, iteration, solution]=GeneticSearch(N,M,stat
         Padres=tournament(PobFit)'; 
         parejas=emparejar(Padres,Pcross);
         tmpPopulation=cruceSimple(parejas,Population,crucePart);         
-        newPopulation=swap(tmpPopulation,Pmut,M);              
+        newPopulation=swap(tmpPopulation,Pmut,M,N);              
         
         newPopulation=checkSatelitesPopulation(newPopulation,M,stations);         
         newFit=populationEval(newPopulation,stations);           
