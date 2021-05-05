@@ -6,14 +6,14 @@ T_min=1;
 noImprovement = 0;
 iter = 0;
 Current=representatives;
-currentCost = fEval(satelites, Current);
+bestCost = fEval(satelites, Current);
 while (T>T_min && noImprovement < 70)
     New = AnnealingSuccessor(Current, satelites, installCosts, Cmax, M);
     newCost = fEval(satelites, New);
-    deltaE =   newCost - currentCost;
+    deltaE =   newCost - bestCost;
     if deltaE<0
         Current=New;
-        currentCost = newCost;
+        bestCost
         noImprovement = 0;
     else
         p=exp(-deltaE/T);
@@ -26,6 +26,6 @@ while (T>T_min && noImprovement < 70)
     T = enfriar(T);
     iter = iter + 1;
 end
-bestCost = currentCost;
+
 end
 
